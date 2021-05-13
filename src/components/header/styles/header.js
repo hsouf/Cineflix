@@ -4,11 +4,20 @@ import { Link as ReachRouterLink } from 'react-router-dom';
 export const Background = styled.div`
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.35)), url(${({ src }) => (src ? `../images/misc/${src}.jpg` : '../images/misc/home-bg.jpg')}) top left / cover
-    no-repeat;
+
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.35)
+    ),
+    url(${({ src }) =>
+        src ? `../images/misc/${src}.jpg` : '../images/misc/home-bg.jpg'})
+      top left / cover no-repeat;
 
   @media (max-width: 1100px) {
-    ${({ dontShowOnSmallViewPort }) => dontShowOnSmallViewPort && `background: none;`}
+    ${({ dontShowOnSmallViewPort }) =>
+      dontShowOnSmallViewPort && `background: none;`}
   }
 `;
 
@@ -117,8 +126,7 @@ export const ButtonLink = styled(ReachRouterLink)`
   }
 `;
 
-export const Picture = styled.button`
-  background: url(${({ src }) => src});
+export const Picture = styled.img`
   background-size: contain;
   border: 0;
   width: 32px;
@@ -131,7 +139,7 @@ export const Dropdown = styled.div`
   position: absolute;
   background-color: black;
   padding: 10px;
-  width: 100px;
+  width: 150px;
   top: 32px;
   right: 10px;
 
@@ -210,12 +218,12 @@ export const Text = styled.p`
 `;
 
 export const Logo = styled.img`
-  height: 36px;
-  width: 134px;
+  height: 50px;
+  width: 150px;
   margin-right: 40px;
 
   @media (min-width: 1449px) {
-    height: 45px;
+    height: 60px;
     width: 167px;
   }
 `;
@@ -227,7 +235,7 @@ export const PlayButton = styled.button`
   border-width: 0;
   padding: 10px 20px;
   border-radius: 5px;
-  max-width: 130px;
+  width: 30%;
   font-weight: bold;
   font-size: 20px;
   margin-top: 10px;

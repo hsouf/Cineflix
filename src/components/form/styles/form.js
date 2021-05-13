@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 660px;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: white;
   border-radius: 5px;
   width: 100%;
   margin: auto;
@@ -31,7 +31,7 @@ export const Base = styled.form`
 `;
 
 export const Title = styled.h1`
-  color: #fff;
+  color: black;
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 28px;
@@ -75,17 +75,13 @@ export const Input = styled.input`
 `;
 
 export const Submit = styled.button`
-  background: #e50914;
+  background: orange;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   margin: 24px 0 12px;
   padding: 16px;
   border: 0;
   color: white;
   cursor: pointer;
-
-  &:disabled {
-    opacity: 0.5;
-  }
 `;

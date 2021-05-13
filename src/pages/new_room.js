@@ -5,78 +5,72 @@ import { Form } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
 import * as ROUTES from '../constants/routes';
-
+import DateTimePicker from 'react-datetime-picker';
 export default function SignUp() {
   const history = useHistory();
-  const { firebase } = useContext(FirebaseContext);
+  //const { firebase } = useContext(FirebaseContext);
 
   const [firstName, setFirstName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
+  const [date, setDate] = useState('');
   const isInvalid = firstName === '' || password === '' || emailAddress === '';
 
   const handleSignup = (event) => {
     event.preventDefault();
-
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(emailAddress, password)
-      .then((result) =>
-        result.user
-          .updateProfile({
-            displayName: firstName,
-            photoURL: Math.floor(Math.random() * 5) + 1,
-          })
-          .then(() => {
-            history.push(ROUTES.BROWSE);
-          })
-      )
-      .catch((error) => {
-        setFirstName('');
-        setEmailAddress('');
-        setPassword('');
-        setError(error.message);
-      });
   };
 
   return (
     <>
       <HeaderContainer>
         <Form>
-          <Form.Title>Sign Up</Form.Title>
+          <Form.Title>Movie Schedule</Form.Title>
           {error && <Form.Error>{error}</Form.Error>}
 
           <Form.Base onSubmit={handleSignup} method="POST">
             <Form.Input
-              placeholder="First name"
-              value={firstName}
-              onChange={({ target }) => setFirstName(target.value)}
-            />
-            <Form.Input
-              placeholder="Email address"
+              placeholder="Room name"
               value={emailAddress}
               onChange={({ target }) => setEmailAddress(target.value)}
             />
             <Form.Input
-              type="password"
+              placeholder="Choose a movie"
+              value={firstName}
+              onChange={({ target }) => setFirstName(target.value)}
+              list="movies"
+            />
+            <datalist id="movies">
+              <option value="Edge" />
+              <option value="Firefox" />
+            </datalist>
+
+            <Form.Input
+              placeholder="Max members"
+              type="number"
+              //onChange={({ target }) => setEmailAddress(target.value)}
+            />
+            <Form.Input
               value={password}
               autoComplete="off"
-              placeholder="Password"
+              placeholder="Visibility"
               onChange={({ target }) => setPassword(target.value)}
+              list="visibility"
             />
-            <Form.Submit disabled={isInvalid} type="submit" data-testid="sign-up">
-              Sign Up
+            <datalist id="visibility">
+              <option value="Public" />
+              <option value="Private" />
+            </datalist>
+            <Form.Text>Pick the date and hour that suits you</Form.Text>
+            <DateTimePicker onChange={setDate} value={date} />
+            <Form.Submit
+              disabled={isInvalid}
+              type="submit"
+              data-testid="sign-up"
+            >
+              Create room !
             </Form.Submit>
           </Form.Base>
-
-          <Form.Text>
-            Already a user? <Form.Link to="/signin">Sign in now.</Form.Link>
-          </Form.Text>
-          <Form.TextSmall>
-            This page is protected by Google reCAPTCHA to ensure you're not a bot. Learn more.
-          </Form.TextSmall>
         </Form>
       </HeaderContainer>
       <FooterContainer />

@@ -31,7 +31,8 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   height: 70px;
-  background: #e50914;
+  background: orange;
+
   color: white;
   text-transform: uppercase;
   padding: 0 32px;
