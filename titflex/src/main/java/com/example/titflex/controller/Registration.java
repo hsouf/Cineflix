@@ -1,5 +1,6 @@
 package com.example.titflex.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Registration {
 
-	private RegistrationService registrationService = new RegistrationService();
+	@Autowired
+	private RegistrationService registrationService;
 	
 	@PostMapping("/registration")
 	public String register(@RequestBody RegistrationRequest request) {

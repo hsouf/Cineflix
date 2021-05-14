@@ -12,11 +12,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class RegistrationService {
 	
-	
-	private static UserService userService = new UserService();
-	private static EmailValidator emailValidator = new EmailValidator();
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private EmailValidator emailValidator;
 
-	public static String register(RegistrationRequest request) {
+	public  String register(RegistrationRequest request) {
+		System.out.println(request);
 		boolean isEmailValid = emailValidator.test(request.getEmail());
 		
 		if(!isEmailValid) {
