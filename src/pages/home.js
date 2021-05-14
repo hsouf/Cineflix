@@ -31,7 +31,7 @@ export default function Home() {
             <Browse />
           </div>
 
-          <Header src="joker1" dontShowOnSmallViewPort>
+          <Header src="joker1">
             <Header.Feature>
               <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
               <Header.Text>
@@ -41,7 +41,9 @@ export default function Home() {
                 the guise he projects in a futile attempt to feel like he's part
                 of the world around him.
               </Header.Text>
-              <Header.PlayButton>Open new room</Header.PlayButton>
+              <Header.PlayButton>
+                Watch Joker with your friends{' '}
+              </Header.PlayButton>
             </Header.Feature>
           </Header>
         </Feature>

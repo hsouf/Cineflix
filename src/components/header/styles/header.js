@@ -138,11 +138,12 @@ export const Dropdown = styled.div`
   display: none;
   position: absolute;
   background-color: black;
-  padding: 10px;
-  width: 150px;
+  padding: '10%';
+
+  width: '550px';
   top: 32px;
   right: 10px;
-
+  left: 20px;
   ${Group}:last-of-type ${Link} {
     cursor: pointer;
   }
@@ -230,14 +231,14 @@ export const Logo = styled.img`
 
 export const PlayButton = styled.button`
   box-shadow: 0 0.6vw 1vw -0.4vw rgba(0, 0, 0, 0.35);
-  background-color: #e6e6e6;
+  background-color: orange;
   color: #000;
   border-width: 0;
   padding: 10px 20px;
   border-radius: 5px;
-  width: 30%;
+  width: 40%;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   margin-top: 10px;
   cursor: pointer;
   transition: background-color 0.5s ease;

@@ -11,15 +11,16 @@ export function HeaderContainer({ children }) {
 
         <Header.Profile>
           <Header.TextLink>My rooms</Header.TextLink>
-          <Header.Dropdown style={{ width: '350px', padding: '5%' }}>
+          <Header.Dropdown style={{ width: '500px', padding: '5%' }}>
             <Header.Group>
-              <Header.Picture src={'cinema'} />
+              <Header.Picture src={'cinema'} style={{ padding: '7%' }} />
               <Header.TextLink style={{ padding: '10%' }}>
-                room name
+                Hosted by{' '}
               </Header.TextLink>
-              <Header.TextLink>Title of the movie</Header.TextLink>
+              <Header.TextLink>Movie</Header.TextLink>
+
               <Header.TextLink>Number of guests</Header.TextLink>
-              <Header.TextLink>date and hour</Header.TextLink>
+              <Header.TextLink style={{ padding: '10%' }}>Day</Header.TextLink>
             </Header.Group>
           </Header.Dropdown>
         </Header.Profile>
