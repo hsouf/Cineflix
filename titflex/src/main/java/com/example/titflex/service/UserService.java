@@ -4,11 +4,14 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.titflex.model.ConfirmationToken;
 import com.example.titflex.model.User;
@@ -62,5 +65,9 @@ public class UserService implements UserDetailsService{
 			
 		return token;
 	}
+	
+	 public int enableAppUser(String email) {
+	        return userRepository.enableAppUser(email);
+	 }
 
 }
