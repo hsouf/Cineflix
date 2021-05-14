@@ -1,5 +1,8 @@
 package com.example.titflex.service;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.titflex.model.ConfirmationToken;
 import com.example.titflex.model.User;
 import com.example.titflex.repository.UserRepository;
 
@@ -20,6 +24,9 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+	
+	@Autowired
+	private ConfirmationTokenService confirmationTokenService;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -42,8 +49,18 @@ public class UserService implements UserDetailsService{
 		
 			userRepository.save(user);
 		
-		
-		return "It Works !! ";
+			// Token Generation
+			String token = UUID.randomUUID().toString();
+			
+			ConfirmationToken confirmationToken = new ConfirmationToken(token,
+															LocalDateTime.now(),
+															LocalDateTime.now().plusMinutes(15),
+															user
+														); 
+			
+			confirmationTokenService.saveConfirmationToken(confirmationToken);
+			
+		return token;
 	}
 
 }
