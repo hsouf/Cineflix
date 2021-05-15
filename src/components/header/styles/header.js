@@ -1,23 +1,16 @@
 import styled from 'styled-components/macro';
-import { Link as ReachRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
+import * as Colors from '../../../constants/colors';
 
 export const Background = styled.div`
   display: flex;
   flex-direction: column;
 
-  background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.35),
-      rgba(0, 0, 0, 0.1),
-      rgba(0, 0, 0, 0.35)
-    ),
-    url(${({ src }) =>
-        src ? `../images/misc/${src}.jpg` : '../images/misc/home-bg.jpg'})
-      top left / cover no-repeat;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.35)),
+    url(${({ src }) => (src ? `../images/misc/${src}.jpg` : '../images/misc/home-bg.jpg')}) top left / cover no-repeat;
 
   @media (max-width: 1100px) {
-    ${({ dontShowOnSmallViewPort }) =>
-      dontShowOnSmallViewPort && `background: none;`}
+    ${({ dontShowOnSmallViewPort }) => dontShowOnSmallViewPort && `background: none;`}
   }
 `;
 
@@ -108,21 +101,22 @@ export const SearchIcon = styled.button`
   }
 `;
 
-export const ButtonLink = styled(ReachRouterLink)`
+export const ButtonLink = styled(ReactRouterLink)`
   display: block;
-  background-color: #e50914;
-  width: 84px;
+  background-color: ${Colors.MAIN_COLOR};
+  width: fit-content;
   height: fit-content;
   color: white;
   border: 0;
-  font-size: 15px;
+  font-size: 17px;
   border-radius: 3px;
   padding: 8px 17px;
   cursor: pointer;
   text-decoration: none;
+  justify-content: center;
 
   &:hover {
-    background: #f40612;
+    background: ${Colors.SECONDARY_COLOR};
   }
 `;
 
@@ -132,18 +126,19 @@ export const Picture = styled.img`
   width: 32px;
   height: 32px;
   cursor: pointer;
+  padding: 7%;
 `;
 
 export const Dropdown = styled.div`
   display: none;
   position: absolute;
   background-color: black;
-  padding: '10%';
-
-  width: '550px';
+  padding: 10%;
+  width: 550px;
   top: 32px;
   right: 10px;
   left: 20px;
+
   ${Group}:last-of-type ${Link} {
     cursor: pointer;
   }
@@ -219,19 +214,19 @@ export const Text = styled.p`
 `;
 
 export const Logo = styled.img`
-  height: 50px;
-  width: 150px;
-  margin-right: 40px;
+  height: 40px;
+  width: 140px;
+  margin-right: 30px;
 
   @media (min-width: 1449px) {
-    height: 60px;
-    width: 167px;
+    height: 45px;
+    width: 160px;
   }
 `;
 
 export const PlayButton = styled.button`
   box-shadow: 0 0.6vw 1vw -0.4vw rgba(0, 0, 0, 0.35);
-  background-color: orange;
+  background-color: #e6e6e6;
   color: #000;
   border-width: 0;
   padding: 10px 20px;
@@ -241,10 +236,10 @@ export const PlayButton = styled.button`
   font-size: 18px;
   margin-top: 10px;
   cursor: pointer;
-  transition: background-color 0.5s ease;
+  transition: color, background-color 0.5s ease;
 
   &:hover {
-    background-color: #ff1e1e;
+    background-color: ${Colors.TERTIARY_COLOR};
     color: white;
   }
 `;

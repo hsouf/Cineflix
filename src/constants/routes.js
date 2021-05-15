@@ -1,5 +1,9 @@
 export const HOME = '/';
-export const BROWSE = '/browse';
 export const SIGN_UP = '/signup';
+export const CONFIRM_MAIL = '/signup/confirm';
+export const SUBSCRIBE = '/signup/subscribe';
+export const SIGN_IN = '/signin';
+export const DASH = '/dash';
+export const BROWSE = '/browse';
 export const NEW_ROOM = '/newroom';
-export const CINEMA = '/cinema';
+export const ROOM = '/room';

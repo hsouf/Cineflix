@@ -1,15 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FirebaseContext } from '../context/firebase';
+import DateTimePicker from 'react-datetime-picker';
+import Select from 'react-select';
 import { Form, Header } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
 import * as ROUTES from '../constants/routes';
-import DateTimePicker from 'react-datetime-picker';
-import Select from 'react-select';
+
 export default function SignUp() {
   const history = useHistory();
-  //const { firebase } = useContext(FirebaseContext);
 
   const [firstName, setFirstName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -21,8 +20,10 @@ export default function SignUp() {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    alert(friend[1].value);
+    // alert(friend[1].value);
     //history.push(ROUTES.HOME);
+
+    history.push(ROUTES.ROOM);
   };
   const options = [
     //get all friends
@@ -74,12 +75,7 @@ export default function SignUp() {
             <Form.Text>Pick the date and hour that suits you</Form.Text>
             <DateTimePicker onChange={setDate} value={date} />
             <Form.Text>Invite your friends</Form.Text>
-            <Select
-              value={friend}
-              onChange={setFriend}
-              options={options}
-              isMulti
-            />
+            <Select value={friend} onChange={setFriend} options={options} isMulti />
             <Form.Submit
               //disabled={isInvalid}
               type="submit"

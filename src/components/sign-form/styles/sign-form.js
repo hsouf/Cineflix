@@ -1,12 +1,12 @@
 import styled from 'styled-components/macro';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReachRouterLink } from 'react-router-dom';
 import * as Colors from '../../../constants/colors';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 660px;
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   width: 100%;
   margin: auto;
@@ -32,7 +32,7 @@ export const Base = styled.form`
 `;
 
 export const Title = styled.h1`
-  color: black;
+  color: #fff;
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 28px;
@@ -51,7 +51,7 @@ export const TextSmall = styled.p`
   color: #8c8c8c;
 `;
 
-export const Link = styled(ReactRouterLink)`
+export const Link = styled(ReachRouterLink)`
   color: #fff;
   text-decoration: none;
 
@@ -78,14 +78,20 @@ export const Input = styled.input`
 export const Submit = styled.button`
   background: ${Colors.MAIN_COLOR};
   border-radius: 4px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   margin: 24px 0 12px;
   padding: 16px;
   border: 0;
   color: white;
   cursor: pointer;
+
   &:hover {
     background: ${Colors.SECONDARY_COLOR};
+  }
+
+  &:disabled {
+    background: ${Colors.MAIN_COLOR};
+    opacity: 0.5;
   }
 `;
