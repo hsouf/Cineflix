@@ -6,3 +6,4 @@ export { default as Dash } from './dash';
 export { default as Browse } from './browse';
 export { default as NewRoom } from './new_room';
 export { default as Room } from './room';
+export { default as myrooms } from './my_rooms';

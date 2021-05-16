@@ -7,3 +7,4 @@ export const DASH = '/dash';
 export const BROWSE = '/browse';
 export const NEW_ROOM = '/newroom';
 export const ROOM = '/room';
+export const MY_ROOMS = '/myrooms';

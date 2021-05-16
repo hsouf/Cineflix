@@ -66,7 +66,11 @@ export default function Room() {
           src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
         />
       </Player>
-      <Chat style={state.visible ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+      <Chat
+        style={
+          state.visible ? { visibility: 'visible' } : { visibility: 'hidden' }
+        }
+      >
         <Chat.Header>
           <Chat.Title>Room Chat</Chat.Title>
         </Chat.Header>
@@ -76,14 +80,20 @@ export default function Room() {
               messages.map((msg) => (
                 <Chat.Message key={msg.id}>
                   <Chat.Image src="/images/users/profile.jpg" />
-                  <Chat.Username>{users.find((x) => x.id === msg.uid)?.name}</Chat.Username>
+                  <Chat.Username>
+                    {users.find((x) => x.id === msg.uid)?.name}
+                  </Chat.Username>
                   <Chat.Text>{msg.text}</Chat.Text>
                 </Chat.Message>
               ))}
             <span ref={dummy} />
           </Chat.Main>
           <Chat.Form submit={sendMessage}>
-            <Chat.Input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeHolder="Send a message" />
+            <Chat.Input
+              value={formValue}
+              onChange={(e) => setFormValue(e.target.value)}
+              placeHolder="Send a message"
+            />
             <Chat.Button type="submit" disabled={!formValue}>
               ✉️
             </Chat.Button>

@@ -11,13 +11,18 @@ export default function Home() {
     <>
       <HeaderContainer homePage>
         <Feature>
-          <Feature.Title>Unlimited films, TV programmes and more.</Feature.Title>
-          <Feature.SubTitle>Watch anywhere. Cancel at any time.</Feature.SubTitle>
+          <Feature.Title>
+            Unlimited films, TV programmes and more.
+          </Feature.Title>
+          <Feature.SubTitle>Watch them with your friends.</Feature.SubTitle>
           <OptForm>
             <OptForm.Input placeholder="Email address" />
             <OptForm.Button to={ROUTES.SIGN_UP}>Try it now</OptForm.Button>
             <OptForm.Break />
-            <OptForm.Text>Ready to watch? Enter your email to create or restart your membership.</OptForm.Text>
+            <OptForm.Text>
+              Ready to watch? Enter your email to create or restart your
+              membership.
+            </OptForm.Text>
           </OptForm>
         </Feature>
       </HeaderContainer>
