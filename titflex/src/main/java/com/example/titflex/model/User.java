@@ -70,6 +70,8 @@ public class User implements UserDetails{
 		this.pays = pays;
 		this.ville = ville;
 	}
+	
+	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -18,6 +18,10 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Nullable
 	Optional<User> findByEmail(String email);
 	
+	@Nullable
+	Optional<User> findByUsername(String userName);
+	
+	
 	@Transactional
     @Modifying
     @Query("UPDATE User a " +
