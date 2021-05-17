@@ -1,10 +1,10 @@
 export const HOME = '/';
-export const SIGN_UP = '/signup';
-export const CONFIRM_MAIL = '/signup/confirm';
-export const SUBSCRIBE = '/signup/subscribe';
-export const SIGN_IN = '/signin';
+export const SIGN_UP = '/sign-up';
+export const CONFIRM_MAIL = '/sign-up/confirm';
+export const SUBSCRIBE = '/sign-up/subscribe';
+export const SIGN_IN = '/sign-in';
 export const DASH = '/dash';
 export const BROWSE = '/browse';
-export const NEW_ROOM = '/newroom';
+export const NEW_ROOM = '/new-room';
 export const ROOM = '/room';
-export const MY_ROOMS = '/myrooms';
+export const MY_ROOMS = '/my-rooms';

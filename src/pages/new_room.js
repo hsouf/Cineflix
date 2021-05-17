@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import DateTimePicker from 'react-datetime-picker';
 import Select from 'react-select';
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import { Form, Header } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
 import * as ROUTES from '../constants/routes';
-import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 
 function getModalStyle() {
   const top = 50;
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
+
 export default function SignUp() {
   const history = useHistory();
 
@@ -45,22 +46,21 @@ export default function SignUp() {
   const handleSignup = (event) => {
     event.preventDefault();
     // alert(friend[1].value);
-    //history.push(ROUTES.HOME);
+    // history.push(ROUTES.HOME);
     setOpen(true);
-
-    //history.push(ROUTES.ROOM);
   };
   const goToDash = () => {
     history.push(ROUTES.DASH);
   };
   const handleClose = () => {
     // alert(friend[1].value);
-    //history.push(ROUTES.HOME);
+    // history.push(ROUTES.HOME);
     setOpen(false);
-    //history.push(ROUTES.ROOM);
+    // history.push(ROUTES.ROOM);
   };
+
   const options = [
-    //get all friends
+    // get all friends
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' },
@@ -104,7 +104,7 @@ export default function SignUp() {
             <Form.Input
               placeholder="Max members"
               type="number"
-              //onChange={({ target }) => setEmailAddress(target.value)}
+              // onChange={({ target }) => setEmailAddress(target.value)}
             />
             <Form.Input
               value={password}
@@ -120,17 +120,12 @@ export default function SignUp() {
             <Form.Text>Pick the date and hour that suits you</Form.Text>
             <DateTimePicker onChange={setDate} value={date} />
             <Form.Text>Invite your friends</Form.Text>
-            <Select
-              value={friend}
-              onChange={setFriend}
-              options={options}
-              isMulti
-            />
+            <Select value={friend} onChange={setFriend} options={options} isMulti />
             <Form.Submit
-              //disabled={isInvalid}
+              // disabled={isInvalid}
               type="submit"
               data-testid="sign-up"
-              //onClick={handleSignup()}
+              // onClick={handleSignup()}
             >
               Create room !
             </Form.Submit>
@@ -147,30 +142,19 @@ export default function SignUp() {
           BackdropProps={date}
         >
           <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">
-              Room created with success ! We have invited your friends to join
-              you
-            </h2>
-            <p
-              id="simple-modal-description"
-              style={{ fontSize: '18', color: 'blue' }}
-            >
+            <h2 id="simple-modal-title">Room created with success ! We have invited your friends to join you</h2>
+            <p id="simple-modal-description" style={{ fontSize: '18', color: 'blue' }}>
               The movie will start at{' '}
               {new Date(date).toLocaleString('en-US', {
                 hour: 'numeric',
                 hour12: true,
               })}{' '}
-              on {new Date(date).getDay()}/{new Date(date).getMonth()}/
-              {new Date(date).getFullYear()}
+              on {new Date(date).getDay()}/{new Date(date).getMonth()}/{new Date(date).getFullYear()}
             </p>
             <p>
-              <span>Be there, don't miss it ^^</span>
+              <span>Be there, don't miss it 😉</span>
             </p>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => goToDash()}
-            >
+            <Button variant="outlined" color="primary" onClick={() => goToDash()}>
               {' '}
               OK{' '}
             </Button>

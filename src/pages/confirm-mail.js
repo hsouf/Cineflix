@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
-import { useHistory } from 'react-router-dom';
 
 import * as ROUTES from '../constants/routes';
-import Button from '@material-ui/core/Button';
+
 export default function ConfirmMail() {
   const history = useHistory();
 
@@ -15,9 +16,7 @@ export default function ConfirmMail() {
   return (
     <>
       <HeaderContainer homePage showButton={false} />
-      <h1 style={{ textAlign: 'center', color: 'white' }}>
-        WELCOME TO TITFLIX, TRY TO SIGN IN NOW !
-      </h1>
+      <h1 style={{ textAlign: 'center', color: 'white' }}>WELCOME TO TITFLIX, TRY TO SIGN IN NOW !</h1>
       <div
         style={{
           display: 'flex',
