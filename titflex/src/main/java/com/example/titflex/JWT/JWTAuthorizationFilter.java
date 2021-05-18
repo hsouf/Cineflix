@@ -1,7 +1,6 @@
 package com.example.titflex.JWT;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.example.titflex.model.User;
 import com.example.titflex.repository.UserRepository;
 
