@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useRef, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -16,8 +17,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Popover from '@material-ui/core/Popover';
 import screenfull from 'screenfull';
 
-import { Container, Inner, ControlsWrapper, Controls } from './styles/player';
+import { useKeyPress } from '../../hooks';
 import * as Colors from '../../constants/colors';
+import { Container, Inner, ControlsWrapper, Controls } from './styles/player';
 
 const usePrevious = (value) => {
   const ref = useRef();
@@ -32,6 +34,7 @@ const useStyles = makeStyles({
     color: '#ddd',
     fontSize: 120,
     transform: 'scale(0.9)',
+    transition: 'transform 0.125s ease',
     '&:hover': {
       color: '#fff',
       transform: 'scale(1)',
@@ -81,6 +84,22 @@ const PrettoSlider = withStyles({
   },
 })(Slider);
 
+const DarkPopover = withStyles({
+  paper: {
+    background: '#0a0a0aee',
+  },
+})(Popover);
+
+const RateButton = withStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: '#303030',
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+  },
+})(Button);
+
 const VolumeSlider = withStyles({
   root: {
     color: Colors.TERTIARY_COLOR,
@@ -106,13 +125,9 @@ const ValueLabelComponent = (props) => {
   );
 };
 
-export default function Player({ children, ...otherProps }) {
-  return <Container {...otherProps}>{children}</Container>;
-}
-
 let idleTime = 0;
 
-Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
+export default function Player({ onFullscreen, src, children, ...otherProps }) {
   const classes = useStyles();
   const [timeDisplayFormat, setTimeDisplayFormat] = useState('normal');
 
@@ -132,6 +147,7 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
 
   const playerRef = useRef(null);
   const controlRef = useRef(null);
+  const containerRef = useRef(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -139,7 +155,7 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const CloseRatePopover = () => {
+  const closeRatePopover = () => {
     setAnchorEl(null);
   };
 
@@ -160,7 +176,7 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
 
   const handlePlaybackRate = (value) => {
     setState({ ...state, playbackRate: value });
-    CloseRatePopover();
+    closeRatePopover();
   };
 
   const toggleFullscreen = () => {
@@ -199,7 +215,6 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
 
   const handleMediaEnd = () => {
     setState({ ...state, ended: true });
-
     controlRef.current.style.visibility = 'visible';
   };
 
@@ -230,9 +245,32 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
   const open = Boolean(anchorEl);
   const id = open ? 'playbackrate-popover' : undefined;
 
+  useKeyPress(' ', () => {
+    if (controlRef.current && document.activeElement === document.body) {
+      idleTime = 0;
+      controlRef.current.style.visibility = 'visible';
+      togglePlay();
+    }
+  });
+  useKeyPress('f', () => {
+    if (controlRef.current && document.activeElement === document.body) {
+      idleTime = 0;
+      controlRef.current.style.visibility = 'visible';
+      toggleFullscreen();
+    }
+  });
+  useKeyPress('m', () => {
+    if (controlRef.current && document.activeElement === document.body) {
+      idleTime = 0;
+      controlRef.current.style.visibility = 'visible';
+      toggleMute();
+    }
+  });
+
   return (
-    <>
-      <Inner style={state.fullscreen ? { width: '100%' } : { width: '76%' }} {...otherProps}>
+    <Container ref={containerRef} {...otherProps}>
+      {children}
+      <Inner style={state.fullscreen || window.innerWidth < 810 ? { width: '100%' } : { width: '76%' }} {...otherProps}>
         <ReactPlayer
           ref={playerRef}
           width="100%"
@@ -242,12 +280,16 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
           volume={state.volume}
           muted={state.muted}
           playbackRate={state.playbackRate}
+          onPlay={() => (state.muted ? handleVolume(null, 0) : null)}
           onProgress={handleProgress}
           onEnded={handleMediaEnd}
           url={src}
         />
       </Inner>
-      <ControlsWrapper onMouseMove={handleMouseMove} style={state.fullscreen ? { width: '100%' } : { width: '76%' }}>
+      <ControlsWrapper
+        onMouseMove={handleMouseMove}
+        style={state.fullscreen || window.innerWidth < 810 ? { width: '100%' } : { width: '76%' }}
+      >
         <Controls ref={controlRef}>
           <Grid container direction="row" alignItems="center" justify="space-between" style={{ padding: 28 }}>
             <Grid item>
@@ -275,7 +317,13 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
                 min={0}
                 max={100}
                 value={state.played * 100}
-                ValueLabelComponent={(props) => <ValueLabelComponent {...props} value={elapsedTime} />}
+                ValueLabelComponent={(props) => (
+                  <ValueLabelComponent
+                    {...props}
+                    open={controlRef.current && controlRef.current.style.visibility === 'visible' && props.open}
+                    value={elapsedTime}
+                  />
+                )}
                 onChange={handleTimeSeek}
                 onMouseDown={handleSeekMouseDown}
                 onChangeCommitted={handleSeekMouseUp}
@@ -313,11 +361,11 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
                 <Typography>{state.playbackRate}X</Typography>
               </Button>
 
-              <Popover
+              <DarkPopover
                 id={id}
-                open={open}
+                open={open && controlRef.current && controlRef.current.style.visibility === 'visible'}
                 anchorEl={anchorEl}
-                onClose={CloseRatePopover}
+                onClose={closeRatePopover}
                 anchorOrigin={{
                   vertical: 'top',
                   horizontal: 'center',
@@ -329,14 +377,14 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
               >
                 <Grid container direction="column-reverse">
                   {[0.5, 1, 1.5, 2].map((rate, key) => (
-                    <Button onClick={() => handlePlaybackRate(rate)} key={key} variant="text">
+                    <RateButton onClick={() => handlePlaybackRate(rate)} key={key} variant="text">
                       <TertiaryColorTypography fontWeight={rate === state.playbackRate ? 'bold' : 'normal'}>
                         {rate}
                       </TertiaryColorTypography>
-                    </Button>
+                    </RateButton>
                   ))}
                 </Grid>
-              </Popover>
+              </DarkPopover>
 
               <IconButton onClick={toggleFullscreen} className={classes.bottomButton}>
                 <FullScreenIcon fontSize="inherit" />
@@ -345,6 +393,6 @@ Player.Video = function PlayerVideo({ onFullscreen, src, ...otherProps }) {
           </Grid>
         </Controls>
       </ControlsWrapper>
-    </>
+    </Container>
   );
-};
+}
