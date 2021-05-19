@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Home, SignUp, SignIn, Subscribe, Dash, NewRoom, Room } from './pages';
 import * as ROUTES from './constants/routes';
@@ -8,6 +8,8 @@ import ConfirmMail from './pages/confirm-mail';
 import MyRooms from './pages/my_rooms';
 
 export function App() {
+  const [user, setUser] = useState(localStorage.getItem('token'));
+
   return (
     <Router>
       <Switch>
@@ -34,9 +36,13 @@ export function App() {
         <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.SIGN_IN}>
           <SignIn />
         </IsUserRedirect>
-        <IsUserRedirect loggedInPath={ROUTES.BROWSE} path={ROUTES.DASH}>
+        <ProtectedRoute
+          user={user}
+          loggedInPath={ROUTES.SIGN_IN}
+          path={ROUTES.DASH}
+        >
           <Dash />
-        </IsUserRedirect>
+        </ProtectedRoute>
         <IsUserRedirect loggedInPath={ROUTES.BROWSE} path={ROUTES.MY_ROOMS}>
           <MyRooms />
         </IsUserRedirect>

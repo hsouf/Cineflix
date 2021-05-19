@@ -8,21 +8,31 @@ import * as ROUTES from '../constants/routes';
 export default function SignUp() {
   const history = useHistory();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [userName, setUserName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const isInvalid = firstName === '' || lastName === '' || password === '' || emailAddress === '';
+  const isInvalid = userName === '' || password === '' || emailAddress === '';
 
   const handleSignup = (event) => {
     event.preventDefault();
 
-    // Signup logic here ...
+    const requestOptions = {
+      method: 'POST',
 
-    // Redirect to dashboard for now
-    history.push(ROUTES.CONFIRM_MAIL);
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: userName,
+        email: emailAddress,
+        password: password,
+      }),
+    };
+    fetch('/api/registration', requestOptions)
+      .then((response) => response.text())
+      .then((data) => console.log(data));
+
+    //history.push(ROUTES.CONFIRM_MAIL);
   };
 
   return (
@@ -34,14 +44,9 @@ export default function SignUp() {
 
           <SignForm.Base onSubmit={handleSignup} method="POST">
             <SignForm.Input
-              placeholder="First name"
-              value={firstName}
-              onChange={({ target }) => setFirstName(target.value)}
-            />
-            <SignForm.Input
-              placeholder="Last name"
-              value={lastName}
-              onChange={({ target }) => setLastName(target.value)}
+              placeholder="username"
+              value={userName}
+              onChange={({ target }) => setUserName(target.value)}
             />
             <SignForm.Input
               placeholder="Email address"
@@ -55,16 +60,22 @@ export default function SignUp() {
               placeholder="Password"
               onChange={({ target }) => setPassword(target.value)}
             />
-            <SignForm.Submit disabled={isInvalid} type="submit" data-testid="sign-up">
+            <SignForm.Submit
+              disabled={isInvalid}
+              type="submit"
+              data-testid="sign-up"
+            >
               Sign Up
             </SignForm.Submit>
           </SignForm.Base>
 
           <SignForm.Text>
-            Already a user? <SignForm.Link to="/signin">Sign in now.</SignForm.Link>
+            Already a user?{' '}
+            <SignForm.Link to="/signin">Sign in now.</SignForm.Link>
           </SignForm.Text>
           <SignForm.TextSmall>
-            This page is protected by Google reCAPTCHA to ensure you're not a bot. Learn more.
+            This page is protected by Google reCAPTCHA to ensure you're not a
+            bot. Learn more.
           </SignForm.TextSmall>
         </SignForm>
       </HeaderContainer>

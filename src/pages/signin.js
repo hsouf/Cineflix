@@ -17,10 +17,28 @@ export default function SignIn() {
   const handleSignin = (event) => {
     event.preventDefault();
 
-    // Sign-in logic here ...
+    const requestOptions = {
+      method: 'POST',
 
-    // Go to the dashboard page for now
-    history.push(ROUTES.DASH);
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: emailAddress,
+
+        password: password,
+      }),
+    };
+    fetch('/login', requestOptions)
+      .then((response) => {
+        let token = response.headers.get('Authorization');
+        localStorage.setItem('token', token);
+        if (token) {
+          history.push(ROUTES.DASH);
+          localStorage.setItem('token', token);
+        } else {
+          alert('not known user');
+        }
+      })
+      .then((data) => console.log(data));
   };
 
   return (
@@ -28,7 +46,9 @@ export default function SignIn() {
       <HeaderContainer homePage showButton={false}>
         <SignForm>
           <SignForm.Title>Sign In</SignForm.Title>
-          {error && <SignForm.Error data-testid="error">{error}</SignForm.Error>}
+          {error && (
+            <SignForm.Error data-testid="error">{error}</SignForm.Error>
+          )}
 
           <SignForm.Base onSubmit={handleSignin} method="POST">
             <SignForm.Input
@@ -43,16 +63,22 @@ export default function SignIn() {
               placeholder="Password"
               onChange={({ target }) => setPassword(target.value)}
             />
-            <SignForm.Submit disabled={isInvalid} type="submit" data-testid="sign-in">
+            <SignForm.Submit
+              disabled={isInvalid}
+              type="submit"
+              data-testid="sign-in"
+            >
               Sign In
             </SignForm.Submit>
           </SignForm.Base>
 
           <SignForm.Text>
-            New to Titflix? <SignForm.Link to="/signup">Sign up now.</SignForm.Link>
+            New to Titflix?{' '}
+            <SignForm.Link to="/signup">Sign up now.</SignForm.Link>
           </SignForm.Text>
           <SignForm.TextSmall>
-            This page is protected by Google reCAPTCHA to ensure you're not a bot. Learn more.
+            This page is protected by Google reCAPTCHA to ensure you're not a
+            bot. Learn more.
           </SignForm.TextSmall>
         </SignForm>
       </HeaderContainer>

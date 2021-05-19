@@ -8,13 +8,14 @@ export default function Browse() {
     {
       title: 'Popular Now ',
       id: '1',
+      category: 'Films',
       data: [
         {
           category: 'films',
           genre: 'thriller',
           slug: 'joker',
           description: 'hbruerbfcuebfubucbubd',
-          docId: '2',
+          docId: '34',
           title: 'joker',
         },
         {
@@ -22,7 +23,7 @@ export default function Browse() {
           genre: 'romance',
           slug: 'titanic',
           description: 'hbruerbfcuebfubucbubd',
-          docId: '2',
+          docId: '45',
           title: 'joker',
         },
         {
@@ -30,7 +31,7 @@ export default function Browse() {
           genre: 'romance',
           slug: 'a-star-is-born',
           description: 'hbruerbfcuebfubucbubd',
-          docId: '2',
+          docId: '0',
           title: 'joker',
         },
         {
@@ -38,14 +39,14 @@ export default function Browse() {
           genre: 'romance',
           slug: 'la-la-land',
           description: 'hbruerbfcuebfubucbubd',
-          docId: '2',
+          docId: '9',
         },
         {
           category: 'films',
           genre: 'thriller',
           slug: 'the-silence-of-the-lambs',
           description: 'hbruerbfcuebfubucbubd',
-          docId: '2',
+          docId: '5',
           title: 'joker',
         },
         {
@@ -53,7 +54,7 @@ export default function Browse() {
           genre: 'thriller',
           slug: 'a-quiet-place',
           description: 'hbruerbfcuebfubucbubd',
-          docId: '2',
+          docId: '1',
           title: 'joker',
         },
         {
@@ -69,7 +70,7 @@ export default function Browse() {
           genre: 'thriller',
           slug: 'nightcrawler',
           description: 'hbruerbfcuebfubucbubd',
-          docId: '2',
+          docId: '3',
           title: 'joker',
         },
       ],
@@ -94,7 +95,7 @@ export default function Browse() {
               </Card.Item>
             ))}
           </Card.Entities>
-          <Card.Feature category={'Films'}>
+          <Card.Feature category={slideItem.category}>
             <Player>
               <Player.Button />
               <Player.Video src="/videos/bunny.mp4" />
