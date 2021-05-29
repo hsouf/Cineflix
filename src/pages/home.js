@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Feature, OptForm } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { JumbotronContainer } from '../containers/jumbotron';
@@ -7,22 +8,34 @@ import { FooterContainer } from '../containers/footer';
 import * as ROUTES from '../constants/routes';
 
 export default function Home() {
+  const history = useHistory();
+  const [mailValue, setMailValue] = useState('');
+
+  const pushSignup = (event) => {
+    event.preventDefault();
+
+    history.push({
+      pathname: ROUTES.SIGN_UP,
+      state: { mail: mailValue },
+    });
+  };
+
   return (
     <>
       <HeaderContainer homePage>
         <Feature>
-          <Feature.Title>
-            Unlimited films, TV programmes and more.
-          </Feature.Title>
+          <Feature.Title>Unlimited films, TV programmes and more.</Feature.Title>
           <Feature.SubTitle>Watch them with your friends.</Feature.SubTitle>
-          <OptForm>
-            <OptForm.Input placeholder="Email address" />
-            <OptForm.Button to={ROUTES.SIGN_UP}>Try it now</OptForm.Button>
+          <OptForm onSubmit={(e) => pushSignup(e)}>
+            <OptForm.Input
+              type="email"
+              onChange={(e) => setMailValue(e.target.value)}
+              placeholder="Email address"
+              required
+            />
+            <OptForm.Button type="submit">Try it now</OptForm.Button>
             <OptForm.Break />
-            <OptForm.Text>
-              Ready to watch? Enter your email to create or restart your
-              membership.
-            </OptForm.Text>
+            <OptForm.Text>Ready to watch? Enter your email to create or restart your membership.</OptForm.Text>
           </OptForm>
         </Feature>
       </HeaderContainer>

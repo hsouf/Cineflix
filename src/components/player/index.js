@@ -270,7 +270,7 @@ export default function Player({ onFullscreen, src, children, ...otherProps }) {
   return (
     <Container ref={containerRef} {...otherProps}>
       {children}
-      <Inner style={state.fullscreen || window.innerWidth < 810 ? { width: '100%' } : { width: '76%' }} {...otherProps}>
+      <Inner style={state.fullscreen || window.innerWidth < 810 ? { width: '100%' } : { width: '76%' }}>
         <ReactPlayer
           ref={playerRef}
           width="100%"

@@ -1,8 +1,11 @@
 export { default as Home } from './home';
 export { default as SignUp } from './signup';
 export { default as SignIn } from './signin';
+export { default as ResendMail } from './resend-mail';
 export { default as ConfirmMail } from './confirm-mail';
-export { default as Subscribe } from './subscribe';
+export { default as Plans } from './plans';
+export { default as Payment } from './payment';
+export { default as CreditOption } from './credit-option';
 export { default as Dash } from './dash';
 export { default as Browse } from './browse';
 export { default as NewRoom } from './new_room';

@@ -24,7 +24,6 @@ export default function MyRooms() {
 
   const joinRoom = (event) => {
     event.preventDefault();
-    console.log(event);
 
     history.push({
       pathname: ROUTES.ROOM,
@@ -45,7 +44,7 @@ export default function MyRooms() {
         }}
       >
         <h2 style={{ color: 'white' }}>Upcoming movies</h2>
-        <form onSubmit={joinRoom}>
+        <form onSubmit={(e) => joinRoom(e)}>
           <Header.Group>
             <img src="/images/films/drama/the-social-network/small.jpg" style={{ width: '30%' }} />
             <Header.TextLink style={{ padding: '10%' }}>Hosted by : soufiane</Header.TextLink>

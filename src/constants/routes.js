@@ -1,7 +1,10 @@
 export const HOME = '/';
 export const SIGN_UP = '/sign-up';
+export const RESEND_MAIL = '/sign-up/resend';
 export const CONFIRM_MAIL = '/sign-up/confirm';
-export const SUBSCRIBE = '/sign-up/subscribe';
+export const PLANS = '/sign-up/plans';
+export const PAYMENT = '/sign-up/payment';
+export const CREDIT_OPTION = '/sign-up/credit-option';
 export const SIGN_IN = '/sign-in';
 export const DASH = '/dash';
 export const BROWSE = '/browse';

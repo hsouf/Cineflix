@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import { Home, SignUp, SignIn, ConfirmMail, Subscribe, Dash, NewRoom, Room, MyRooms } from './pages';
+import {
+  Home,
+  SignUp,
+  SignIn,
+  ResendMail,
+  ConfirmMail,
+  Plans,
+  Payment,
+  Dash,
+  NewRoom,
+  Room,
+  MyRooms,
+  CreditOption,
+} from './pages';
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 import { useAuthListener } from './hooks';
@@ -14,23 +27,55 @@ export function App() {
         <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.HOME}>
           <Home />
         </IsUserRedirect>
-        <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.SIGN_UP}>
+        <IsUserRedirect
+          component={SignUp}
+          render={(props) => <SignUp {...props} />}
+          loggedInPath={ROUTES.DASH}
+          exact
+          path={ROUTES.SIGN_UP}
+        >
           <SignUp />
+        </IsUserRedirect>
+        <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.RESEND_MAIL}>
+          <ResendMail />
+        </IsUserRedirect>
+        <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.RESEND_MAIL}>
+          <ResendMail />
         </IsUserRedirect>
         <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.CONFIRM_MAIL}>
           <ConfirmMail />
         </IsUserRedirect>
-        <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.SUBSCRIBE}>
-          <Subscribe />
+        <IsUserRedirect
+          component={Plans}
+          render={(props) => <Plans {...props} />}
+          loggedInPath={ROUTES.DASH}
+          exact
+          path={ROUTES.PLANS}
+        >
+          <Plans />
+        </IsUserRedirect>
+        <IsUserRedirect
+          component={Payment}
+          render={(props) => <Payment {...props} />}
+          loggedInPath={ROUTES.DASH}
+          exact
+          path={ROUTES.PAYMENT}
+        >
+          <Payment />
+        </IsUserRedirect>
+        <IsUserRedirect
+          component={CreditOption}
+          render={(props) => <CreditOption {...props} />}
+          loggedInPath={ROUTES.DASH}
+          exact
+          path={ROUTES.CREDIT_OPTION}
+        >
+          <CreditOption />
         </IsUserRedirect>
         <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.SIGN_IN}>
           <SignIn />
         </IsUserRedirect>
-        <ProtectedRoute
-          user={user}
-          loggedInPath={ROUTES.SIGN_IN}
-          path={ROUTES.DASH}
-        >
+        <ProtectedRoute user={user} loggedInPath={ROUTES.SIGN_IN} path={ROUTES.DASH}>
           <Dash />
         </ProtectedRoute>
         <IsUserRedirect loggedInPath={ROUTES.BROWSE} path={ROUTES.MY_ROOMS}>

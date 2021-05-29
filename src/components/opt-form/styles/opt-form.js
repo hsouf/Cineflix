@@ -1,8 +1,7 @@
 import styled from 'styled-components/macro';
-import { Link as ReactRouterLink } from 'react-router-dom';
-import * as Colors from '../../../constants/colors';
+import * as COLORS from '../../../constants/colors';
 
-export const Container = styled.div`
+export const Container = styled.form`
   display: flex;
   justify-content: center;
   height: 100%;
@@ -22,6 +21,9 @@ export const Input = styled.input`
   padding: 10px;
   height: 70px;
   box-sizing: border-box;
+  &:focus {
+    outline: solid 1.5px #0540aa;
+  }
 `;
 
 export const Break = styled.div`
@@ -29,11 +31,11 @@ export const Break = styled.div`
   height: 0;
 `;
 
-export const Button = styled(ReactRouterLink)`
+export const Button = styled.button`
   display: flex;
   align-items: center;
   height: 70px;
-  background: ${Colors.MAIN_COLOR};
+  background: ${COLORS.MAIN_COLOR};
 
   color: white;
   text-transform: uppercase;
@@ -54,7 +56,7 @@ export const Button = styled(ReactRouterLink)`
   }
 
   &:hover {
-    background: ${Colors.SECONDARY_COLOR};
+    background: ${COLORS.SECONDARY_COLOR};
   }
 
   @media (max-width: 1000px) {

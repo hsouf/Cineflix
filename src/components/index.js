@@ -11,3 +11,4 @@ export { default as Header } from './header';
 export { default as Loading } from './loading';
 export { default as Player } from './player';
 export { default as Chat } from './chat';
+export { default as Informer } from './informer';
