@@ -19,7 +19,11 @@ export default function Room({ ...props }) {
         currentUser={props.location.state?.currentUser}
         friends={props.location.state?.friends}
         messages={props.location.state?.messages}
-        style={chatState.visible ? { visibility: 'visible' } : { visibility: 'hidden' }}
+        style={
+          chatState.visible
+            ? { visibility: 'visible' }
+            : { visibility: 'hidden' }
+        }
       />
     </>
   );

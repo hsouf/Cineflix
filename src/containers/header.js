@@ -5,7 +5,12 @@ import { Header } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.png';
 
-export function HeaderContainer({ bg, children, homePage = false, showButton = true }) {
+export function HeaderContainer({
+  bg,
+  children,
+  homePage = false,
+  showButton = true,
+}) {
   const history = useHistory();
   const goToRooms = () => {
     history.push(ROUTES.MY_ROOMS);
@@ -18,18 +23,26 @@ export function HeaderContainer({ bg, children, homePage = false, showButton = t
         {homePage === false ? (
           <>
             <Header.Profile>
-              <Header.TextLink onClick={() => goToRooms()}>My rooms</Header.TextLink>
+              <Header.TextLink onClick={() => goToRooms()}>
+                My rooms
+              </Header.TextLink>
             </Header.Profile>
             <Header.Profile>
               <Header.TextLink>My friends</Header.TextLink>
               <Header.Dropdown>
                 <Header.Group>
-                  <Header.Picture src="man" />
+                  <img
+                    src="/images/users/man.png"
+                    style={{ padding: '10px' }}
+                  />
                   <Header.TextLink>soulaimane</Header.TextLink>
                   <Header.TextLink />
                 </Header.Group>
                 <Header.Group>
-                  <Header.Picture src="man" />
+                  <img
+                    src="/images/users/man.png"
+                    style={{ padding: '10px' }}
+                  />
                   <Header.TextLink>soufiane</Header.TextLink>
                 </Header.Group>
               </Header.Dropdown>
@@ -38,13 +51,16 @@ export function HeaderContainer({ bg, children, homePage = false, showButton = t
             <Header.Search />
             <Header.Profile>
               <img src="/images/users/man.png" />
-              <Header.TextLink>My account</Header.TextLink>
-              <Header.Dropdown style={{ width: '300px', padding: '5%' }}>
+              <Header.TextLink>My Profile</Header.TextLink>
+              <Header.Dropdown style={{ width: '20px' }}>
                 <Header.Group>
-                  <Header.TextLink>My subscription </Header.TextLink>
-
+                  <Header.TextLink>Subscription </Header.TextLink>
+                </Header.Group>
+                <Header.Group>
                   <Header.TextLink>Parameters</Header.TextLink>
-                  <Header.TextLink style={{ padding: '10%' }}>rooms</Header.TextLink>
+                </Header.Group>
+                <Header.Group>
+                  <Header.TextLink>rooms</Header.TextLink>
                 </Header.Group>
               </Header.Dropdown>
             </Header.Profile>

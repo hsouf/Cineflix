@@ -50,7 +50,7 @@ export default function SignUp() {
     setOpen(true);
   };
   const goToDash = () => {
-    history.push(ROUTES.DASH);
+    history.push(ROUTES.MY_ROOMS);
   };
   const handleClose = () => {
     // alert(friend[1].value);
@@ -68,14 +68,6 @@ export default function SignUp() {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
-
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Room created with success !</h2>
-      <p id="simple-modal-description">Your movie will start at</p>
-      <p>{date}</p>
-    </div>
-  );
 
   return (
     <>
@@ -120,7 +112,12 @@ export default function SignUp() {
             <Form.Text>Pick the date and hour that suits you</Form.Text>
             <DateTimePicker onChange={setDate} value={date} />
             <Form.Text>Invite your friends</Form.Text>
-            <Select value={friend} onChange={setFriend} options={options} isMulti />
+            <Select
+              value={friend}
+              onChange={setFriend}
+              options={options}
+              isMulti
+            />
             <Form.Submit
               // disabled={isInvalid}
               type="submit"
@@ -142,19 +139,30 @@ export default function SignUp() {
           BackdropProps={date}
         >
           <div style={modalStyle} className={classes.paper}>
-            <h2 id="simple-modal-title">Room created with success ! We have invited your friends to join you</h2>
-            <p id="simple-modal-description" style={{ fontSize: '18', color: 'blue' }}>
+            <h2 id="simple-modal-title">
+              Room created with success ! We have invited your friends to join
+              you
+            </h2>
+            <p
+              id="simple-modal-description"
+              style={{ fontSize: '18', color: 'blue' }}
+            >
               The movie will start at{' '}
               {new Date(date).toLocaleString('en-US', {
                 hour: 'numeric',
                 hour12: true,
               })}{' '}
-              on {new Date(date).getDay()}/{new Date(date).getMonth()}/{new Date(date).getFullYear()}
+              on {new Date(date).getDay()}/{new Date(date).getMonth()}/
+              {new Date(date).getFullYear()}
             </p>
             <p>
               <span>Be there, don't miss it 😉</span>
             </p>
-            <Button variant="outlined" color="primary" onClick={() => goToDash()}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => goToDash()}
+            >
               {' '}
               OK{' '}
             </Button>

@@ -36,13 +36,25 @@ export function App() {
         >
           <SignUp />
         </IsUserRedirect>
-        <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.RESEND_MAIL}>
+        <IsUserRedirect
+          loggedInPath={ROUTES.DASH}
+          exact
+          path={ROUTES.RESEND_MAIL}
+        >
           <ResendMail />
         </IsUserRedirect>
-        <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.RESEND_MAIL}>
+        <IsUserRedirect
+          loggedInPath={ROUTES.DASH}
+          exact
+          path={ROUTES.RESEND_MAIL}
+        >
           <ResendMail />
         </IsUserRedirect>
-        <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.CONFIRM_MAIL}>
+        <IsUserRedirect
+          loggedInPath={ROUTES.DASH}
+          exact
+          path={ROUTES.CONFIRM_MAIL}
+        >
           <ConfirmMail />
         </IsUserRedirect>
         <IsUserRedirect
@@ -75,7 +87,11 @@ export function App() {
         <IsUserRedirect loggedInPath={ROUTES.DASH} exact path={ROUTES.SIGN_IN}>
           <SignIn />
         </IsUserRedirect>
-        <ProtectedRoute user={user} loggedInPath={ROUTES.SIGN_IN} path={ROUTES.DASH}>
+        <ProtectedRoute
+          user={user}
+          loggedInPath={ROUTES.SIGN_IN}
+          path={ROUTES.DASH}
+        >
           <Dash />
         </ProtectedRoute>
         <IsUserRedirect loggedInPath={ROUTES.BROWSE} path={ROUTES.MY_ROOMS}>

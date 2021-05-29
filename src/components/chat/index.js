@@ -14,7 +14,7 @@ import Fuse from 'fuse.js';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
+import SendIcon from '@material-ui/icons/Send';
 import * as ROUTES from '../../constants/routes';
 import * as COLORS from '../../constants/colors';
 import {
@@ -89,7 +89,14 @@ const friendSearchOptions = {
   keys: ['name'],
 };
 
-export default function Chat({ messages, users, currentUser, friends, children, ...restProps }) {
+export default function Chat({
+  messages,
+  users,
+  currentUser,
+  friends,
+  children,
+  ...restProps
+}) {
   const history = useHistory();
 
   const dummy = useRef();
@@ -106,7 +113,8 @@ export default function Chat({ messages, users, currentUser, friends, children, 
   const [friendInputValue, setFriendInputValue] = useState('');
   const [searchList, setSearchList] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState();
-  const [friendInputPlaceholder, setFriendInputPlaceholder] = useState('Invite a friend');
+  const [friendInputPlaceholder, setFriendInputPlaceholder] =
+    useState('Invite a friend');
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -145,7 +153,8 @@ export default function Chat({ messages, users, currentUser, friends, children, 
 
   useEffect(() => {
     if (friendSearchRef.current) {
-      const searchResultCount = friendSearchRef.current.children[0].children.length;
+      const searchResultCount =
+        friendSearchRef.current.children[0].children.length;
       if (searchResultCount === 0) {
         friendSearchRef.current.style.display = 'none';
         usersRef.current.style.height = '70.5vh';
@@ -178,7 +187,8 @@ export default function Chat({ messages, users, currentUser, friends, children, 
     // Invite friend logic here ...
 
     // For now we flag user as invited, clear input and selection and show a message
-    friends.find((friend) => friend.id === selectedFriend.id).status = 'Invited';
+    friends.find((friend) => friend.id === selectedFriend.id).status =
+      'Invited';
     setSelectedFriend();
     setFriendInputValue('');
     setFriendInputPlaceholder('Invitation sent ✔️');
@@ -192,10 +202,24 @@ export default function Chat({ messages, users, currentUser, friends, children, 
     <Container {...restProps}>
       {children}
       <Header>
-        <Grid container direction="row" alignItems="center" justify="space-between" style={{ padding: 6 }}>
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          justify="space-between"
+          style={{ padding: 6 }}
+        >
           <Grid item>
-            <HeaderToolTip title="Exit" placement="right" TransitionComponent={Zoom}>
-              <IconButton onClick={toggleExitModal} className={classes.headerButton} aria-label="exit">
+            <HeaderToolTip
+              title="Exit"
+              placement="right"
+              TransitionComponent={Zoom}
+            >
+              <IconButton
+                onClick={toggleExitModal}
+                className={classes.headerButton}
+                aria-label="exit"
+              >
                 <PowerSettingsNewIcon fontSize="inherit" />
               </IconButton>
             </HeaderToolTip>
@@ -204,9 +228,21 @@ export default function Chat({ messages, users, currentUser, friends, children, 
             <Title>{state.chatView ? 'Room Chat' : 'Room Users'}</Title>
           </Grid>
           <Grid item>
-            <HeaderToolTip title={state.chatView ? 'Users' : 'Chat'} placement="left" TransitionComponent={Zoom}>
-              <IconButton onClick={toggleChatView} className={classes.headerButton} aria-label="users">
-                {state.chatView ? <PeopleAltIcon fontSize="inherit" /> : <ChatIcon fontSize="inherit" />}
+            <HeaderToolTip
+              title={state.chatView ? 'Users' : 'Chat'}
+              placement="left"
+              TransitionComponent={Zoom}
+            >
+              <IconButton
+                onClick={toggleChatView}
+                className={classes.headerButton}
+                aria-label="users"
+              >
+                {state.chatView ? (
+                  <PeopleAltIcon fontSize="inherit" />
+                ) : (
+                  <ChatIcon fontSize="inherit" />
+                )}
               </IconButton>
             </HeaderToolTip>
           </Grid>
@@ -218,26 +254,49 @@ export default function Chat({ messages, users, currentUser, friends, children, 
             {messages &&
               messages.map((msg) => (
                 <Message key={msg.id}>
-                  <MessageImage src={`https://picsum.photos/150?random=${msg.uid}`} />
-                  <MessageUsername>{users.find((x) => x.id === msg.uid)?.name}</MessageUsername>
+                  <MessageImage
+                    src={`https://picsum.photos/150?random=${msg.uid}`}
+                  />
+                  <MessageUsername>
+                    {users.find((x) => x.id === msg.uid)?.name}
+                  </MessageUsername>
                   <MessageText>{msg.text}</MessageText>
                 </Message>
               ))}
             <span ref={dummy} />
           </Main>
-          <Form onSubmit={sendMessage}>
-            <Input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Send a message" />
-            <Button type="submit" disabled={!formValue}>
-              <EmailIcon fontSize="inherit" />
+          <Form onSubmit={sendMessage} style={{ height: '6%' }}>
+            <Input
+              value={formValue}
+              onChange={(e) => setFormValue(e.target.value)}
+              placeholder="Send a message"
+            />
+            <Button
+              type="submit"
+              disabled={!formValue}
+              style={{ backgroundColor: 'blue' }}
+            >
+              <SendIcon fontSize="inherit" />
             </Button>
           </Form>
         </ChatBody>
       ) : (
         <UserBody>
           <FriendMain>
-            <Grid container direction="column" justify="space-between" style={{ padding: 0 }}>
+            <Grid
+              container
+              direction="column"
+              justify="space-between"
+              style={{ padding: 0 }}
+            >
               <Grid item>
-                <Grid container direction="row" alignItems="center" justify="space-between" style={{ padding: 0 }}>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justify="space-between"
+                  style={{ padding: 0 }}
+                >
                   <Grid item xs={9}>
                     <FriendInput
                       type="text"
@@ -272,12 +331,22 @@ export default function Chat({ messages, users, currentUser, friends, children, 
               </Grid>
               <Grid item style={{ textAlign: '-webkit-center' }}>
                 <FriendSearch ref={friendSearchRef}>
-                  <Grid container direction="column" justify="space-between" style={{ padding: 0 }}>
+                  <Grid
+                    container
+                    direction="column"
+                    justify="space-between"
+                    style={{ padding: 0 }}
+                  >
                     {searchList?.map((friend) => (
                       <Grid item key={friend.item.id}>
-                        <Friend onClick={(e) => handleFriendSelect(e)} disabled={friend.item.status !== 'Not Invited'}>
+                        <Friend
+                          onClick={(e) => handleFriendSelect(e)}
+                          disabled={friend.item.status !== 'Not Invited'}
+                        >
                           <FriendOverlay>{`${friend.item.id} / ${friend.item.name}`}</FriendOverlay>
-                          <FriendImage src={`https://picsum.photos/150?random=${friend.item.id}`} />
+                          <FriendImage
+                            src={`https://picsum.photos/150?random=${friend.item.id}`}
+                          />
                           <FriendUsername>{friend.item.name}</FriendUsername>
                           <FriendStatus>{friend.item.status}</FriendStatus>
                         </Friend>
@@ -292,39 +361,32 @@ export default function Chat({ messages, users, currentUser, friends, children, 
             <Title>Users in chat ({users?.length || 0})</Title>
           </SubHeader>
           <UserMain ref={usersRef}>
-            <Grid container direction="column" alignItems="flex-start" justify="space-between" style={{ padding: 0 }}>
+            <Grid
+              container
+              direction="column"
+              alignItems="flex-start"
+              justify="space-between"
+              style={{ padding: 0 }}
+            >
               <Grid item style={{ color: 'white' }}>
-                Broadcaster
+                Host :
               </Grid>
               <Grid item style={{ marginTop: 5, color: COLORS.TERTIARY_COLOR }}>
                 {users?.find((user) => user.role === 'Broadcaster').name}
               </Grid>
-              {users?.find((user) => user.role === 'Moderator') ? (
-                <>
-                  <Grid item style={{ color: 'white', marginTop: 35 }}>
-                    Moderators
-                  </Grid>
-                  {users.map((user) => {
-                    if (user.role === 'Moderator') {
-                      return (
-                        <Grid item key={user.id} style={{ marginTop: 5, color: COLORS.TERTIARY_COLOR }}>
-                          {user.name}
-                        </Grid>
-                      );
-                    }
-                    return null;
-                  })}
-                </>
-              ) : null}
+
               {users?.find((user) => user.role === 'User') ? (
                 <>
                   <Grid item style={{ color: 'white', marginTop: 35 }}>
-                    Users
+                    Invited :
                   </Grid>
                   {users.map((user) => {
                     if (user.role === 'User') {
                       return (
-                        <Grid item style={{ marginTop: 5, color: COLORS.TERTIARY_COLOR }}>
+                        <Grid
+                          item
+                          style={{ marginTop: 5, color: COLORS.TERTIARY_COLOR }}
+                        >
                           {user.name}
                         </Grid>
                       );
@@ -353,14 +415,21 @@ export default function Chat({ messages, users, currentUser, friends, children, 
           <div className={classes.paper}>
             <ModalTitle id="transition-modal-title">Are you sure ?</ModalTitle>
             <ModalText id="transition-modal-description">
-              If you are the room's broadcaster, leaving will put an end to the stream.
+              If you are the room's broadcaster, leaving will put an end to the
+              stream.
             </ModalText>
-            <Grid container direction="row" justify="space-between" style={{ padding: '35px 20px' }}>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              style={{ padding: '35px 20px' }}
+            >
               <Grid item xs={12} style={{ textAlign: '-webkit-center' }}>
                 <ModalConfirm
                   onClick={() => {
                     history.push(ROUTES.DASH);
                   }}
+                  style={{ backgroundColor: 'blue' }}
                 >
                   Confirm
                 </ModalConfirm>

@@ -349,6 +349,6 @@ export const ModalConfirm = styled.button`
   transition: opacity 0.2s ease, box-shadow 0.3s ease;
   &:hover {
     opacity: 1;
-    box-shadow: 0px 0.5px 5px 5px rgba(255, 165, 0, 0.55);
+    box-shadow: 0px 0.5px 5px 5px rgba(0, 0, 0, 0);
   }
 `;
