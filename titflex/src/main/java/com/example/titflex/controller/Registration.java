@@ -107,7 +107,7 @@ public class Registration {
 	private VideoStreamService videoStreamService;
 	
 	@GetMapping("/video/stream/{fileType}/{fileName}")
-    public Mono<ResponseEntity<byte[]>> streamVideo(ServerHttpResponse serverHttpResponse, @RequestHeader(value = "Range", required = false) String httpRangeList,
+    public Mono<ResponseEntity<byte[]>> streamVideo(@RequestHeader(value = "Range", required = false) String httpRangeList,
                                                     @PathVariable("fileType") String fileType,
                                                     @PathVariable("fileName") String fileName) {
     	
