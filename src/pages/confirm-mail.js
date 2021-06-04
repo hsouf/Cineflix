@@ -8,9 +8,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Informer } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
-
+import queryString from 'query-string';
 import * as COLORS from '../constants/colors';
 import * as ROUTES from '../constants/routes';
+import { useLocation } from 'react-router';
 
 const ConfirmButton = withStyles({
   root: {
@@ -57,12 +58,14 @@ const ColoredCircularProgress = withStyles({
   },
 })(CircularProgress);
 
-export default function ConfirmMail() {
+export default function ConfirmMail({ ...props }) {
   const history = useHistory();
+  //let city = new URLSearchParams(props.location.search).get('token');
 
   const [state, setState] = useState({
     verified: false,
   });
+  const [token, setToken] = useState('');
 
   const topContainerRef = useRef();
   const bottomContainerRef = useRef();
@@ -72,6 +75,25 @@ export default function ConfirmMail() {
       top: 0,
       behavior: 'smooth',
     });
+    //alert(props.match.params.token);
+    //let params = queryString.parse(props.match.params.token);
+    let token_temp = props.match.params.token.substring(6);
+
+    const requestOptions = {
+      method: 'GET',
+
+      headers: { 'Content-Type': 'application/json' },
+    };
+    fetch('/api/confirm?token=' + token_temp, requestOptions)
+      .then((response) => {
+        //const token = response.headers.get('Authorization');
+        //localStorage.setItem('token', token);
+        console.log(token_temp);
+        if (response.status == 200) {
+          setState({ ...state, verified: true });
+        }
+      })
+      .then((data) => console.log(data));
   }, []);
 
   useEffect(() => {
@@ -88,9 +110,9 @@ export default function ConfirmMail() {
   }, [state.verified]);
 
   // Should call route to verify mail then set state to true. For now we simulate this with a timer.
-  setTimeout(() => {
-    setState({ ...state, verified: true });
-  }, 3000);
+  //setTimeout(() => {
+  //setState({ ...state, verified: true });
+  //}, 3000);
 
   return (
     <>
@@ -109,11 +131,14 @@ export default function ConfirmMail() {
                 margin: 'auto',
               }}
             >
-              <h1 style={{ margin: '1em 0 1em 0' }}>Email address is verified !</h1>
+              <h1 style={{ margin: '1em 0 1em 0' }}>
+                Email address is verified !
+              </h1>
               <CircleCheck />
               <Informer.TopWrapper>
                 <Informer.PreTitle>
-                  STEP <span style={{ fontWeight: 'bold' }}>2</span> OF <span style={{ fontWeight: 'bold' }}>3</span>
+                  STEP <span style={{ fontWeight: 'bold' }}>2</span> OF{' '}
+                  <span style={{ fontWeight: 'bold' }}>3</span>
                 </Informer.PreTitle>
                 <Informer.Title>Choose your plan.</Informer.Title>
                 <Informer.Body>
@@ -179,9 +204,13 @@ export default function ConfirmMail() {
               </Informer.TopWrapper>
             </div>
             {!state.verified ? (
-              <Informer.TopWrapper style={{ display: 'grid', placeItems: 'center' }}>
+              <Informer.TopWrapper
+                style={{ display: 'grid', placeItems: 'center' }}
+              >
                 <ColoredCircularProgress />
-                <h1 style={{ margin: '2rem 0 2rem 0' }}>Verifying your account . . .</h1>
+                <h1 style={{ margin: '2rem 0 2rem 0' }}>
+                  Verifying your account . . .
+                </h1>
               </Informer.TopWrapper>
             ) : (
               <></>
@@ -189,7 +218,9 @@ export default function ConfirmMail() {
           </Informer.Top>
         </Informer.Inner>
       </Informer>
-      <FooterContainer style={{ margin: 0, padding: '70px', maxWidth: 'auto' }} />
+      <FooterContainer
+        style={{ margin: 0, padding: '70px', maxWidth: 'auto' }}
+      />
     </>
   );
 }

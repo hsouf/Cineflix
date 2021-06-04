@@ -54,6 +54,8 @@ export function App() {
           loggedInPath={ROUTES.DASH}
           exact
           path={ROUTES.CONFIRM_MAIL}
+          render={(props) => <ConfirmMail {...props} />}
+          component={ConfirmMail}
         >
           <ConfirmMail />
         </IsUserRedirect>

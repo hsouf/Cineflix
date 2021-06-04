@@ -32,7 +32,7 @@ export default function SignUp({ ...props }) {
       body: JSON.stringify({
         username: userName,
         email: emailAddress,
-        password,
+        password: password,
       }),
     };
     fetch('/api/registration', requestOptions)
@@ -72,16 +72,22 @@ export default function SignUp({ ...props }) {
               placeholder="Password"
               onChange={({ target }) => setPassword(target.value)}
             />
-            <SignForm.Submit disabled={isInvalid} type="submit" data-testid="sign-up">
+            <SignForm.Submit
+              disabled={isInvalid}
+              type="submit"
+              data-testid="sign-up"
+            >
               Sign Up
             </SignForm.Submit>
           </SignForm.Base>
 
           <SignForm.Text>
-            Already a user? <SignForm.Link to={ROUTES.SIGN_IN}>Sign in now.</SignForm.Link>
+            Already a user?{' '}
+            <SignForm.Link to={ROUTES.SIGN_IN}>Sign in now.</SignForm.Link>
           </SignForm.Text>
           <SignForm.TextSmall>
-            This page is protected by Google reCAPTCHA to ensure you're not a bot. Learn more.
+            This page is protected by Google reCAPTCHA to ensure you're not a
+            bot. Learn more.
           </SignForm.TextSmall>
         </SignForm>
       </HeaderContainer>

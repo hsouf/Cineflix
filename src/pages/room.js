@@ -12,7 +12,7 @@ export default function Room({ ...props }) {
         onFullscreen={() => {
           setChatState({ visible: !chatState.visible });
         }}
-        src={props.location.state?.src}
+        src={'/api/video/stream/mp4/FUEL'}
       />
       <Chat
         users={props.location.state?.users}

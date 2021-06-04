@@ -1,7 +1,7 @@
 export const HOME = '/';
 export const SIGN_UP = '/sign-up';
 export const RESEND_MAIL = '/sign-up/resend';
-export const CONFIRM_MAIL = '/sign-up/confirm';
+export const CONFIRM_MAIL = '/sign-up/confirm/:token';
 export const PLANS = '/sign-up/plans';
 export const PAYMENT = '/sign-up/payment';
 export const CREDIT_OPTION = '/sign-up/credit-option';
