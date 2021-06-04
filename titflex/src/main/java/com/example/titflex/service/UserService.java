@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,6 +31,9 @@ public class UserService implements UserDetailsService{
 	
 	@Autowired
 	private ConfirmationTokenService confirmationTokenService;
+	
+	@Autowired
+	private EmailSenderService emailSenderService;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -63,6 +67,15 @@ public class UserService implements UserDetailsService{
 			
 			confirmationTokenService.saveConfirmationToken(confirmationToken);
 			
+			// add email sender
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Complete Registration!");
+            mailMessage.setFrom("titflix.contact@gmail.com");
+            mailMessage.setText("To confirm your account, please click here : "
+            +"http://localhost:8080/api/confirm?token="+token);
+
+            emailSenderService.sendEmail(mailMessage);
 		return token;
 	}
 	
