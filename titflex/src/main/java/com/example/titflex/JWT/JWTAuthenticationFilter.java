@@ -65,5 +65,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Add token in response
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX +  token);
+        response.addHeader("username", principal.getUsername());
     }
 }
