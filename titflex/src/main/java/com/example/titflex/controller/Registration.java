@@ -26,7 +26,9 @@ import com.example.titflex.model.Movie;
 import com.example.titflex.model.RegistrationRequest;
 import com.example.titflex.model.Room;
 import com.example.titflex.model.User;
+import com.example.titflex.repository.MovieRepository;
 import com.example.titflex.repository.UserRepository;
+import com.example.titflex.service.FriendsService;
 import com.example.titflex.service.MovieService;
 import com.example.titflex.service.RegistrationService;
 import com.example.titflex.service.RoomService;
@@ -48,10 +50,6 @@ public class Registration {
 		return registrationService.register(request);
 	}
 	
-	@GetMapping("/test")
-	public String test() {
-		return "This is a test";
-	}
 	
 	@GetMapping(path = "/confirm")
     public String confirm(@RequestParam("token") String token) throws Exception {
@@ -114,5 +112,53 @@ public class Registration {
     	System.out.println(fileType + " || " + fileName);
         return Mono.just(videoStreamService.prepareContent(fileName, fileType, httpRangeList));
     }
+	
+	
+	@GetMapping("/room/{roomId}/movies")
+	public String roomMovies(@PathVariable("roomId") int roomId) {
+		
+		return movieService.moviesByRoom(roomId).toString();
+	}
+	
+	@GetMapping("/room/{roomId}/users")
+	public List<User> roomUsers(@PathVariable("roomId") int roomId) {
+		
+		return movieService.usersByRoom(roomId);
+	}
+	
+	@Autowired
+	private FriendsService friendsService;
+	
+	@GetMapping("/friends")
+	public List<User> friends(@RequestHeader("Authorization") String jwtToken){
+		
+		System.out.println(jwtToken);
+		String token = jwtToken.replace(JwtProperties.TOKEN_PREFIX,"");
+		int user_id = 0;
+		System.out.println(token);
+		User principal;
+		if (token != null) {
+            // parse the token and validate it
+            String userName = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
+                    .build()
+                    .verify(token)
+                    .getSubject();
+
+            System.out.println(userName);
+            // Search in the DB if we find the user by token subject (username)
+            // If so, then grab user details and create spring auth token using username, pass, authorities/roles
+            if (userName != null) {
+                Optional<User> user = userRepository.findByUsername(userName);
+                principal = user.get();
+                user_id = principal.getID();
+                return friendsService.myUsers(user_id);
+            }
+        }else {
+        	return null;
+        }
+		
+		return null;
+		
+	}
 	
 }

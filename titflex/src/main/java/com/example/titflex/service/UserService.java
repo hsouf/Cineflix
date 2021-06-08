@@ -68,14 +68,19 @@ public class UserService implements UserDetailsService{
 			confirmationTokenService.saveConfirmationToken(confirmationToken);
 			
 			// add email sender
-			SimpleMailMessage mailMessage = new SimpleMailMessage();
-			mailMessage.setTo(user.getEmail());
-            mailMessage.setSubject("Complete Registration!");
-            mailMessage.setFrom("titflix.contact@gmail.com");
-            mailMessage.setText("To confirm your account, please click here : "
-            +"http://localhost:8080/api/confirm?token="+token);
+			new Thread(()-> {
+				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				mailMessage.setTo(user.getEmail());
+				mailMessage.setSubject("Complete Registration!");
+				mailMessage.setFrom("titflix.contact@gmail.com");
+				mailMessage.setText("To confirm your account, please click here : "
+						+"http://localhost:8080/api/confirm?token="+token);
+				
+				emailSenderService.sendEmail(mailMessage);
+			}).start();
+			
 
-            emailSenderService.sendEmail(mailMessage);
+            
 		return token;
 	}
 	

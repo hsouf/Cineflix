@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         	.antMatchers(HttpMethod.POST, "/login").permitAll()
         	.antMatchers("/api/*").permitAll()
         	.antMatchers("/api/video/stream/*/*").permitAll()
+        	.antMatchers("/api/room/*/*").permitAll()
         	.anyRequest().authenticated();
 		
 		
